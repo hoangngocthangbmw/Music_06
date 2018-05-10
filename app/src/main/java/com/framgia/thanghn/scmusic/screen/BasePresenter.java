@@ -4,11 +4,25 @@ package com.framgia.thanghn.scmusic.screen;
  * Created by thang on 5/2/2018.
  */
 
-public interface BasePresenter<T> {
+public class BasePresenter<V extends BaseView> implements BaseMvpPresenter<V> {
+    protected V mView;
 
-    void setView(T view);
+    public V getView() {
+        return mView;
+    }
 
-    void onStart();
+    @Override
+    public void setView(V view) {
+        mView = view;
+    }
 
-    void onStop();
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onStop() {
+
+    }
 }
