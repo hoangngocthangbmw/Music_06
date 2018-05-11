@@ -10,7 +10,7 @@ import com.framgia.thanghn.scmusic.R;
 import com.framgia.thanghn.scmusic.screen.BaseAcitivity;
 import com.framgia.thanghn.scmusic.screen.download.DownloadFragment;
 import com.framgia.thanghn.scmusic.screen.favorite.FavoriteFragment;
-import com.framgia.thanghn.scmusic.screen.home.SongsFragment;
+import com.framgia.thanghn.scmusic.screen.songs.SongsFragment;
 import com.framgia.thanghn.scmusic.ultils.SystemNavigationBarUtils;
 
 /**
