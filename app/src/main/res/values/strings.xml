@@ -4,5 +4,11 @@
     <string name="title_download">Download</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_menu">Menu</string>
+    <string name="text_add_favorite">Add favorite</string>
+    <string name="text_download">Download song</string>
+    <string name="key_position_item">position</string>
+    <string name="value_curren_time">0:00</string>
+    <string name="genres">Genres</string>
+    <string name="text_delete">Delete song</string>
 
 </resources>
