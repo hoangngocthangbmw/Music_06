@@ -1,7 +1,7 @@
-package com.framgia.thanghn.scmusic.data.source;
+package com.framgia.thanghn.scmusic.data.source.remote;
 
 import com.framgia.thanghn.scmusic.data.model.Song;
-import com.framgia.thanghn.scmusic.data.source.remote.GetDataApiSoundCloundAsynTask;
+import com.framgia.thanghn.scmusic.data.source.SongDataSource;
 
 /**
  * Created by thang on 5/10/2018.
