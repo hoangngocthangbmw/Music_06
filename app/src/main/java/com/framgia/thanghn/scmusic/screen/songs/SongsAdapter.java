@@ -1,6 +1,5 @@
 package com.framgia.thanghn.scmusic.screen.songs;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemview = layoutInflater.inflate(R.layout.item_list_song, parent, false);
-        return new ViewHolder(itemview,mOnClickItemReyclerView);
+        return new ViewHolder(itemview, mOnClickItemReyclerView);
     }
 
     @Override
@@ -62,26 +61,28 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         private ConstraintLayout mConstraintLayout;
         private OnClickItemReyclerView mOnClickItemReyclerView;
         private Song mSong;
+        private ImageView mImageViewDownload;
 
-        public ViewHolder(View itemView,OnClickItemReyclerView onClickItemReyclerView) {
+        public ViewHolder(View itemView, OnClickItemReyclerView onClickItemReyclerView) {
             super(itemView);
             mAvatarSong = itemView.findViewById(R.id.image_avatar_song);
             mTextSongName = itemView.findViewById(R.id.text_song_name);
             mTextArtist = itemView.findViewById(R.id.text_artist);
             mItemAction = itemView.findViewById(R.id.image_item_action);
             mConstraintLayout = itemView.findViewById(R.id.constrain_item);
-            mOnClickItemReyclerView=onClickItemReyclerView;
-
+            mOnClickItemReyclerView = onClickItemReyclerView;
+            mImageViewDownload = itemView.findViewById(R.id.image_download_song);
             mItemAction.setOnClickListener(this);
             mConstraintLayout.setOnClickListener(this);
         }
 
         public void bindData(Song song) {
             if (song != null) {
-                mSong=song;
+                mSong = song;
                 Picasso.get().load(song.getAvatarUrl()).into(mAvatarSong);
                 mTextSongName.setText(song.getTitle());
-                mTextArtist.setText(song.getUsername());
+                mTextArtist.setText(song.getUserName());
+                mImageViewDownload.setVisibility(song.isDownloadable() ? View.VISIBLE : View.GONE);
             }
         }
 

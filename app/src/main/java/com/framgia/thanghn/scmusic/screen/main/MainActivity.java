@@ -59,8 +59,10 @@ public class MainActivity extends BaseAcitivity implements BottomNavigationView.
                 replaceFragment(new SongsFragment());
                 return true;
             case R.id.navigation_download:
+                replaceFragment(new DownloadFragment());
                 return true;
             case R.id.navigation_favorite:
+                replaceFragment(new FavoriteFragment());
                 return true;
             case R.id.navigation_menu:
                 return true;

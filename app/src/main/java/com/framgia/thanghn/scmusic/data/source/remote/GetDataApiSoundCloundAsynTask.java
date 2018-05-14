@@ -107,7 +107,7 @@ public class GetDataApiSoundCloundAsynTask extends AsyncTask<String, Void, Strin
             song.setTitle(jsonObjectTrack.getString(TrackEntry.Api.TITLE));
             song.setUri(jsonObjectTrack.getString(TrackEntry.Api.URI));
             JSONObject jsonObjectUser = new JSONObject(jsonObjectTrack.getString(TrackEntry.Api.USER));
-            song.setUsername(jsonObjectUser.getString(TrackEntry.Api.USERNAME));
+            song.setUserName(jsonObjectUser.getString(TrackEntry.Api.USERNAME));
             song.setAvatarUrl(jsonObjectUser.getString(TrackEntry.Api.AVATAR_URL));
             return song;
         }

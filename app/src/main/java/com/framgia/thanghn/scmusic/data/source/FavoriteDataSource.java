@@ -5,17 +5,16 @@ import com.framgia.thanghn.scmusic.data.model.Song;
 import java.util.List;
 
 /**
- * Created by thang on 5/10/2018.
+ * Created by thang on 5/12/2018.
  */
 
-public interface SongDataSource {
-
-    interface RemoteDataSource {
-        void getSongRemote(OnFetchDataListener<Song> listener, String url);
-    }
-
+public interface FavoriteDataSource {
     interface LocalDataSource {
+        void getSongLocal(FavoriteDataSource.OnFetchDataListener<Song> listener);
+
         void insertSong(Song song);
+
+        boolean deleteSong(Song song);
     }
 
     interface OnFetchDataListener<T> {
