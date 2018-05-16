@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -13,6 +13,13 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/text_size_app_name</item>
         <item name="android:layout_margin">@dimen/text_margin_app_name</item>
+    </style>
+
+    <style name="TintedProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint" tools:ignore="NewApi">@android:color/holo_red_dark
+        </item>
+        <item name="android:indeterminateTintMode" tools:ignore="NewApi">src_in</item>
     </style>
 
 </resources>

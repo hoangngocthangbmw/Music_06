@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.framgia.thanghn.scmusic.data.source.local.SongsFavoriteDbHepler;
 import com.framgia.thanghn.scmusic.screen.BaseFragment;
 import com.framgia.thanghn.scmusic.screen.favorite.FavoriteContract;
 import com.framgia.thanghn.scmusic.screen.player.PlayMusicActivity;
+import com.framgia.thanghn.scmusic.screen.search.SearchActivity;
 import com.framgia.thanghn.scmusic.ultils.ConfigApi;
 import com.framgia.thanghn.scmusic.ultils.Constants;
 import com.framgia.thanghn.scmusic.ultils.TrackEntry;
@@ -46,7 +48,7 @@ import static com.framgia.thanghn.scmusic.ultils.Constants.GENRE_COUNTRY;
  */
 
 public class SongsFragment extends BaseFragment implements AdapterView.OnItemSelectedListener,
-        SongsAdapter.OnClickItemReyclerView, SongsContract.View,View.OnClickListener {
+        SongsAdapter.OnClickItemReyclerView, SongsContract.View, View.OnClickListener {
     private RecyclerView mRecycler;
     private ImageView mImageViewSearch;
     private String[] mListSpinner = {GENRE_ALL_MUSIC, GENRE_ALL_AUDIO, GENRE_ALTERNATIVEROCK,
@@ -56,6 +58,9 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
     private SongsAdapter mSongsAdapter;
     private TextView mTextViewSongName;
     private ImageView mImageViewSkipPrevious, mImageViewPlay, mImageViewSkipNext;
+    private ProgressBar mProgressBar;
+    private ArrayList<Song> mSongList;
+    private int mPosition;
 
     @Nullable
     @Override
@@ -72,7 +77,7 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
     }
 
     private void initView() {
-        mSongPresenter = new SongsPresenter( SongReopository.getInstance(getActivity()));
+        mSongPresenter = new SongsPresenter(SongReopository.getInstance(getActivity()));
         mSongPresenter.setView(this);
         mSongPresenter.loadSongs(Constants.GENRE_ALL_MUSIC);
         mRecycler = getView().findViewById(R.id.recyler_home);
@@ -82,9 +87,12 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
         mImageViewSkipPrevious = getActivity().findViewById(R.id.image_skip_previous);
         mImageViewPlay = getActivity().findViewById(R.id.image_play);
         mImageViewSkipNext = getActivity().findViewById(R.id.image_skip_next);
+        mProgressBar = getActivity().findViewById(R.id.progress_loadding);
+        mProgressBar.setVisibility(View.VISIBLE);
         mImageViewSkipNext.setOnClickListener(this);
         mImageViewPlay.setOnClickListener(this);
         mImageViewSkipPrevious.setOnClickListener(this);
+        mImageViewSearch.setOnClickListener(this);
         initSpinner();
         initRecyler();
     }
@@ -122,13 +130,19 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
 
     @Override
     public void onItemClicked(int postion) {
-        Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
-        startActivity(intent);
+        if (mSongList.size() > 0) {
+            mPosition = postion;
+            Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(Song.class.getName(), mSongList);
+            bundle.putInt(getResources().getString(R.string.key_position_item), postion);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onAddToFavoriteClicked(Song song) {
-//        FavoriteRepository.getInstance(getActivity()).insertSong(song);
         mSongPresenter.insertSong(song);
     }
 
@@ -143,6 +157,7 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
             mSongsAdapter = new SongsAdapter(songList);
             mRecycler.setAdapter(mSongsAdapter);
             mSongsAdapter.setOnClickItemRecyclerView(this);
+            mProgressBar.setVisibility(View.GONE);
         }
 
     }
@@ -161,6 +176,9 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
                 break;
             case R.id.image_skip_next:
                 break;
+            case R.id.button_search_home:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
         }
     }
 }

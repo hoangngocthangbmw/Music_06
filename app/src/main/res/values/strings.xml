@@ -11,4 +11,7 @@
     <string name="genres">Genres</string>
     <string name="action_delete">Delete</string>
     <string name="text_add">Added</string>
+    <string name="text_button_search">Search</string>
+    <string name="text_hint_search">Name of song</string>
+
 </resources>
