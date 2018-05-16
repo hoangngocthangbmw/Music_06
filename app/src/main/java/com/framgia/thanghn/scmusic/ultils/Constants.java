@@ -19,6 +19,11 @@ public final class Constants {
     public static final String PARA_OFFSET = "&offset=";
     public static final String PARA_LIMIT = "&limit=";
     public static final String CLIENT_ID = "&client_id=";
+    public static final String ADDED = "Added";
+    public static final String DELETE = "Delete";
+    public static final String STREAM = "/stream?client_id=";
+    public static final String QUERY = "&q=";
+    public static final String BASE_URL_SEARCH = "http://api.soundcloud.com/";
 
     private Constants() {
         //no op

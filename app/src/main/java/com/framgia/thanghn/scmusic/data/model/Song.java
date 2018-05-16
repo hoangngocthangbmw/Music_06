@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by thang on 5/6/2018.
  */
 
-public class Song implements Parcelable{
+public class Song implements Parcelable {
     private String mArtworkUrl;
     private String mDescription;
     private boolean mDownloadable;
@@ -17,11 +17,18 @@ public class Song implements Parcelable{
     private int mLikesCount;
     private String mTitle;
     private String mUri;
-    private String mUsername;
+    private String mUserName;
     private String mAvatarUrl;
     private int mPlaybackCount;
 
     public Song() {
+    }
+
+    public Song(String uri, String title, String avatarUrl, String userName) {
+        mTitle = title;
+        mUri = uri;
+        mUserName = userName;
+        mAvatarUrl = avatarUrl;
     }
 
     protected Song(Parcel in) {
@@ -34,7 +41,7 @@ public class Song implements Parcelable{
         mLikesCount = in.readInt();
         mTitle = in.readString();
         mUri = in.readString();
-        mUsername = in.readString();
+        mUserName = in.readString();
         mAvatarUrl = in.readString();
         mPlaybackCount = in.readInt();
     }
@@ -123,12 +130,12 @@ public class Song implements Parcelable{
         mUri = uri;
     }
 
-    public String getUsername() {
-        return mUsername;
+    public String getUserName() {
+        return mUserName;
     }
 
-    public void setUsername(String username) {
-        mUsername = username;
+    public void setUserName(String userName) {
+        mUserName = userName;
     }
 
     public String getAvatarUrl() {
@@ -163,7 +170,7 @@ public class Song implements Parcelable{
         parcel.writeInt(mLikesCount);
         parcel.writeString(mTitle);
         parcel.writeString(mUri);
-        parcel.writeString(mUsername);
+        parcel.writeString(mUserName);
         parcel.writeString(mAvatarUrl);
         parcel.writeInt(mPlaybackCount);
     }

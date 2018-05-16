@@ -17,9 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.framgia.thanghn.scmusic.BuildConfig;
 import com.framgia.thanghn.scmusic.R;
 import com.framgia.thanghn.scmusic.data.model.Song;
+import com.framgia.thanghn.scmusic.data.source.FavoriteRepository;
+import com.framgia.thanghn.scmusic.data.source.SongReopository;
+import com.framgia.thanghn.scmusic.data.source.local.SongsFavoriteDbHepler;
 import com.framgia.thanghn.scmusic.screen.BaseFragment;
+import com.framgia.thanghn.scmusic.screen.favorite.FavoriteContract;
 import com.framgia.thanghn.scmusic.screen.player.PlayMusicActivity;
 import com.framgia.thanghn.scmusic.ultils.ConfigApi;
 import com.framgia.thanghn.scmusic.ultils.Constants;
@@ -41,7 +46,7 @@ import static com.framgia.thanghn.scmusic.ultils.Constants.GENRE_COUNTRY;
  */
 
 public class SongsFragment extends BaseFragment implements AdapterView.OnItemSelectedListener,
-        SongsAdapter.OnClickItemReyclerView, SongsContract.View, View.OnClickListener {
+        SongsAdapter.OnClickItemReyclerView, SongsContract.View,View.OnClickListener {
     private RecyclerView mRecycler;
     private ImageView mImageViewSearch;
     private String[] mListSpinner = {GENRE_ALL_MUSIC, GENRE_ALL_AUDIO, GENRE_ALTERNATIVEROCK,
@@ -67,7 +72,7 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
     }
 
     private void initView() {
-        mSongPresenter = new SongsPresenter();
+        mSongPresenter = new SongsPresenter( SongReopository.getInstance(getActivity()));
         mSongPresenter.setView(this);
         mSongPresenter.loadSongs(Constants.GENRE_ALL_MUSIC);
         mRecycler = getView().findViewById(R.id.recyler_home);
@@ -123,7 +128,8 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
 
     @Override
     public void onAddToFavoriteClicked(Song song) {
-
+//        FavoriteRepository.getInstance(getActivity()).insertSong(song);
+        mSongPresenter.insertSong(song);
     }
 
     @Override

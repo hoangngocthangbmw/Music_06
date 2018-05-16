@@ -18,8 +18,8 @@ public class SongsPresenter extends BasePresenter<SongsContract.View>
         implements SongsContract.Presenter, SongDataSource.OnFetchDataListener<Song> {
     private SongReopository mSongReopository;
 
-    public SongsPresenter() {
-        mSongReopository = SongReopository.getInstance();
+    public SongsPresenter(SongReopository reopository) {
+        mSongReopository = reopository;
     }
 
 
@@ -34,8 +34,14 @@ public class SongsPresenter extends BasePresenter<SongsContract.View>
                 + ConfigApi.LIMIT
                 + Constants.PARA_OFFSET
                 + ConfigApi.OFFSET;
-        mSongReopository.getSongRemote(this,url );
+        mSongReopository.getSongRemote(this, url);
     }
+
+    @Override
+    public void insertSong(Song song) {
+        mSongReopository.insertSong(song);
+    }
+
 
     @Override
     public void onFetchDataSuccess(List<Song> data) {
