@@ -25,9 +25,11 @@ import com.framgia.thanghn.scmusic.data.source.FavoriteRepository;
 import com.framgia.thanghn.scmusic.data.source.SongReopository;
 import com.framgia.thanghn.scmusic.data.source.local.SongsFavoriteDbHepler;
 import com.framgia.thanghn.scmusic.screen.BaseFragment;
+import com.framgia.thanghn.scmusic.screen.download.DownLoadManager;
 import com.framgia.thanghn.scmusic.screen.favorite.FavoriteContract;
 import com.framgia.thanghn.scmusic.screen.player.PlayMusicActivity;
 import com.framgia.thanghn.scmusic.screen.search.SearchActivity;
+import com.framgia.thanghn.scmusic.service.MusicService;
 import com.framgia.thanghn.scmusic.ultils.ConfigApi;
 import com.framgia.thanghn.scmusic.ultils.Constants;
 import com.framgia.thanghn.scmusic.ultils.TrackEntry;
@@ -131,13 +133,8 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
     @Override
     public void onItemClicked(int postion) {
         if (mSongList.size() > 0) {
-            mPosition = postion;
-            Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList(Song.class.getName(), mSongList);
-            bundle.putInt(getResources().getString(R.string.key_position_item), postion);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            getActivity().startActivity(PlayMusicActivity.getInstance(getActivity()));
+            getActivity().startService(MusicService.getInstance(getActivity(), mSongList, postion));
         }
     }
 
@@ -148,12 +145,24 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
 
     @Override
     public void onDowloadSongClicked(Song song) {
+        downloadSong(song.isDownloadable());
+    }
 
+    private void downloadSong(Boolean downloadable) {
+
+        DownLoadManager.registerReceiver(getActivity());
+        if (downloadable) {
+            DownLoadManager.getInstance().requestDownload(getActivity(), mSongList.get(mPosition));
+        } else {
+            Toast.makeText(getActivity(), getResources().getString(R.string.download_not_allowed),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void getSongsSuccess(List<Song> songList) {
         if (songList.size() > 0) {
+            mSongList = (ArrayList<Song>) songList;
             mSongsAdapter = new SongsAdapter(songList);
             mRecycler.setAdapter(mSongsAdapter);
             mSongsAdapter.setOnClickItemRecyclerView(this);
@@ -180,5 +189,22 @@ public class SongsFragment extends BaseFragment implements AdapterView.OnItemSel
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DownLoadManager.unregisterReceiver(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        DownLoadManager.unregisterReceiver(getActivity());
     }
 }

@@ -34,5 +34,7 @@ public class TrackEntry {
         String USER = "user";
         String USERNAME = "username";
         String AVATAR_URL = "avatar_url";
+        String LARGE_IMAGE_SIZE = "large";
+        String BETTER_IMAGE_SIZE = "original";
     }
 }

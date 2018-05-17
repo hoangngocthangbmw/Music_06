@@ -16,6 +16,7 @@ import com.framgia.thanghn.scmusic.data.model.Song;
 import com.framgia.thanghn.scmusic.screen.BaseAcitivity;
 import com.framgia.thanghn.scmusic.screen.main.MainActivity;
 import com.framgia.thanghn.scmusic.screen.player.PlayMusicActivity;
+import com.framgia.thanghn.scmusic.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,12 +93,8 @@ public class SearchActivity extends BaseAcitivity implements View.OnClickListene
 
     @Override
     public void onItemClicked(int position, Song song) {
-        Intent intent = new Intent(SearchActivity.this, PlayMusicActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(Song.class.getName(), mSongList);
-        bundle.putInt(getResources().getString(R.string.key_position_item), position);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        startActivity(PlayMusicActivity.getInstance(SearchActivity.this));
+        startService(MusicService.getInstance(SearchActivity.this, mSongList, position));
     }
 
     @Override

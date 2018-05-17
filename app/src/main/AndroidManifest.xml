@@ -3,6 +3,7 @@
     package="com.framgia.thanghn.scmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,17 +11,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.main.MainActivity">
+        <activity android:name=".screen.main.MainActivity" />
+
+        <activity android:name=".screen.player.PlayMusicActivity" />
+
+        <activity android:name=".screen.search.SearchActivity" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true" />
+
+        <activity android:name=".screen.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".screen.player.PlayMusicActivity"/>
-
-        <activity android:name=".screen.search.SearchActivity"/>
 
     </application>
 

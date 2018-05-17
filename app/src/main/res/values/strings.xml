@@ -13,5 +13,7 @@
     <string name="text_add">Added</string>
     <string name="text_button_search">Search</string>
     <string name="text_hint_search">Name of song</string>
-
+    <string name="string_download_completed">Download completed</string>
+    <string name="string_download_succes">Download success</string>
+    <string name="download_not_allowed">Download not allowed</string>
 </resources>

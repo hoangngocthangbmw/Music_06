@@ -1,5 +1,6 @@
 package com.framgia.thanghn.scmusic.screen.favorite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,7 +15,10 @@ import com.framgia.thanghn.scmusic.R;
 import com.framgia.thanghn.scmusic.data.model.Song;
 import com.framgia.thanghn.scmusic.data.source.FavoriteRepository;
 import com.framgia.thanghn.scmusic.screen.BaseFragment;
+import com.framgia.thanghn.scmusic.screen.player.PlayMusicActivity;
+import com.framgia.thanghn.scmusic.service.MusicService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,7 +70,7 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
     @Override
     public void getSongsSuccess(List<Song> songList) {
         if (songList.size() > 0) {
-            mSongs = songList;
+            mSongs = (ArrayList<Song>) songList;
             mFavoriteAdapter = new FavoriteAdapter(songList);
             mRecyclerView.setAdapter(mFavoriteAdapter);
             mFavoriteAdapter.setOnClickItemRecyclerView(this);
@@ -84,7 +88,8 @@ public class FavoriteFragment extends BaseFragment implements FavoriteContract.V
 
     @Override
     public void onItemClicked(int postion, Song song) {
-        Toast.makeText(getActivity(), song.getTitle(), Toast.LENGTH_SHORT).show();
+        getActivity().startActivity(PlayMusicActivity.getInstance(getActivity()));
+        getActivity().startService(MusicService.getInstance(getActivity(), mSongs, postion));
     }
 
     @Override

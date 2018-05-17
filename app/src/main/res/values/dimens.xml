@@ -22,5 +22,12 @@
     <dimen name="dp_180">180dp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="dp_52">52dp</dimen>
+    <dimen name="height_image_notification">56dp</dimen>
+    <dimen name="width_image_notification">56dp</dimen>
+    <dimen name="width_image_playing">256dp</dimen>
+    <dimen name="height_image_playing">256dp</dimen>
+    <dimen name="width_seekbar">0dp</dimen>
+    <dimen name="width_border_image_playing">2dp</dimen>
+    <dimen name="dp_42">42dp</dimen>
 
 </resources>

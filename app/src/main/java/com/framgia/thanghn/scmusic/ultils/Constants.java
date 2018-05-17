@@ -24,6 +24,8 @@ public final class Constants {
     public static final String STREAM = "/stream?client_id=";
     public static final String QUERY = "&q=";
     public static final String BASE_URL_SEARCH = "http://api.soundcloud.com/";
+    public static final String ACTION_STATE_MEDIA = "action_state_media";
+    public static final String EXTRA_STATE_MEDIA = "extra_state_media";
 
     private Constants() {
         //no op

@@ -19,6 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_52"
         android:background="@color/peach_orange_layout_player"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/navigation_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
